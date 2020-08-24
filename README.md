@@ -1,2 +1,7 @@
-# Frontend-Flutter
-The Frontend MVVM of the Chikitsak App using Flutter
+# Frontend [Flutter]
+
+Front End UI Implementation and FE Business Logic - Flutter
+
+# Dependencies
+
+[To Be Added]
