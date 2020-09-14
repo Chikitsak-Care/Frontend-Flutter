@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 //UI Colors
-const uiBlue = Color(0xFF0190b0);
-const uiGrey = Color(0xFFC4C4C4);
+const uiBlue = Color(0xFF00B6BD);
+const uiGrey = Color(0xFFF0F0F0);
+const uiBlack = Colors.black;
+const uiRed = Color(0xFFF8563F);
 const uiSkyBlue = Color(0xFF33B6FF);
 
 //textStyles
@@ -23,3 +25,8 @@ TextStyle kButton1 =
 //LoginScreen
 TextStyle kLoginHeader = baseStyle.copyWith(
     color: uiBlue, fontSize: 14, fontWeight: FontWeight.w600);
+
+//DashBoard
+TextStyle kBaseStyle = TextStyle(
+  color: Colors.white,
+);
