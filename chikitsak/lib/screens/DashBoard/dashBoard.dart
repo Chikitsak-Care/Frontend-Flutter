@@ -102,7 +102,13 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   Widget _homeScreenBody() {
-    List<Widget> _homeScreenWidgets = [_searchBar(), _covidBanner()];
+    List<Widget> _homeScreenWidgets = [
+      _searchBar(),
+      _covidBanner(),
+      _findYourDoctorScroller(),
+      _onGoingConsultation(),
+      _topRankedDoctors()
+    ];
 
     return Expanded(
       child: Container(
@@ -135,18 +141,460 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
+  Widget _topRankedDoctors() {
+    List<Widget> _children = [
+      _topRankedDoctorsHeader(),
+      _topRankedDoctorsBody(),
+    ];
+    return Padding(
+      padding: EdgeInsets.only(top: height(context, 25)),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, children: _children),
+    );
+  }
+
+  Widget _topRankedDoctorsBody() {
+    List<Widget> _children = [
+      _topDoctorTile("General Physician", "Vivek Singh", "2H"),
+      _topDoctorTile("Paediatrician", "Anand Sharma", "3H"),
+      _topDoctorTile("Dentist", "Kiran Deep", "3H")
+    ];
+    return Container(
+      height: height(context, 235),
+      width: width(context, 340),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: _children,
+      ),
+    );
+  }
+
+  Widget _topDoctorTile(
+      String doctorCategory, String doctorName, String responseRate) {
+    return Container(
+      height: height(context, 68),
+      width: width(context, 340),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            height(context, 10),
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: height(context, 11),
+          horizontal: width(context, 19),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: height(context, 46),
+              width: width(context, 48),
+              decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(height(context, 10)))),
+            ),
+            // SizedBox(width: width(context, 16)),
+            Container(
+              width: width(context, 190),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    doctorCategory,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                  ),
+                  Text(
+                    "Dr. " + doctorName,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[800]),
+                  )
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.lock_clock, color: Colors.blue),
+                Text(
+                  responseRate,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.blue,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _topRankedDoctorsHeader() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: height(context, 14)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Top Ranked Doctors",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          Text(
+            "View All",
+            style: TextStyle(
+              color: Color(0xFF27AE60),
+              fontSize: height(context, 14),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _onGoingConsultation() {
+    String _doctorCategory = "General Physician";
+    String _doctorName = "Vinod Oberoi";
+    String _consultationDate = "20 Aug 2020";
+    String _latestRemark =
+        "Decrease in temperature, coping well with medicines";
+
+    List<Widget> _children = [
+      _onGoingConsultationHeader(),
+      _onGoingConsultationTile(
+          _doctorCategory, _doctorName, _consultationDate, _latestRemark),
+    ];
+    return Padding(
+      padding: EdgeInsets.only(top: height(context, 25)),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, children: _children),
+    );
+  }
+
+  Widget _onGoingConsultationHeader() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: height(context, 14)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Ongoing Consultation",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          Text(
+            "View History",
+            style: TextStyle(
+              color: Color(0xFF27AE60),
+              fontSize: height(context, 14),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _onGoingConsultationTile(String doctorCategory, String doctorName,
+      String consultationDate, String latestRemark) {
+    return Container(
+      height: height(context, 209),
+      width: width(context, 340),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(width(context, 10)))),
+      child: Padding(
+        padding: EdgeInsets.all(width(context, 15)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: height(context, 62),
+                  width: width(context, 62),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(height(context, 10))),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: width(context, 48)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(doctorCategory,
+                          style:
+                              TextStyle(fontSize: 14, color: Colors.grey[400])),
+                      Text(
+                        "Dr. " + doctorName,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  child: Image.asset(
+                    'assets/Vector (4).png',
+                    height: height(context, 30.67),
+                    width: width(context, 32),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(height: height(context, 18)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Consultation Date",
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey[400],
+                        )),
+                    Text(
+                      consultationDate,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[800],
+                      ),
+                    )
+                  ],
+                ),
+                Text(
+                  "View Prescription",
+                  style: TextStyle(fontSize: 14, color: Color(0xFF00B6BD)),
+                )
+              ],
+            ),
+            SizedBox(height: height(context, 18)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Latest Remark",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.grey[400],
+                  ),
+                ),
+                Text(
+                  latestRemark,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[800],
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _findYourDoctorScroller() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _doctorScrollerHeader(),
+        SizedBox(
+          height: height(context, 14),
+        ),
+        _doctorScrollerBody()
+      ],
+    );
+  }
+
+  Widget _doctorScrollerBody() {
+    //List values would be coming from API
+    List<String> imageUrl = [
+      'assets/Vector (1).png',
+      'assets/Vector (2).png',
+      'assets/Vector (3).png'
+    ];
+
+    List<String> name = ['General', 'Dental Care', 'Eye Care'];
+
+    List<Color> background = [
+      Color(0xFF13D382),
+      Color(0xFFFF8B36),
+      Color(0xFF3CB9FF),
+    ];
+
+    List<String> noOfDoctors = ["48", "13", "9"];
+
+    List<Widget> _children = [];
+
+    for (int i = 0; i < name.length; i++) {
+      _children
+          .add(_cardModel(imageUrl[i], name[i], background[i], noOfDoctors[i]));
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        child: Expanded(
+          child: Row(
+            children: _children,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _cardModel(
+      String imageURL, String name, Color background, String noOfDoctors) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: width(context, 6),
+      ),
+      child: Container(
+        height: height(context, 130),
+        width: width(context, 117),
+        decoration: BoxDecoration(
+          color: Color(0xFFF9F9F9),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              height(context, 10),
+            ),
+          ),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: height(context, 80),
+              width: width(context, 117),
+              decoration: BoxDecoration(
+                color: background,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    height(context, 10),
+                  ),
+                  topRight: Radius.circular(
+                    height(context, 10),
+                  ),
+                ),
+              ),
+              child: Center(
+                child: Image.asset(
+                  '$imageURL',
+                  height: height(context, 52),
+                  width: width(context, 48.3),
+                ),
+              ),
+            ),
+            Container(
+              height: height(context, 50),
+              width: width(context, 117),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "$name",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: height(context, 14),
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: height(context, 2),
+                  ),
+                  Text(
+                    "$noOfDoctors Doctors",
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: height(context, 11),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _doctorScrollerHeader() {
+    void _onTap() {}
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "Find Your Desired Doctor",
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: height(context, 18),
+              fontWeight: FontWeight.w500),
+        ),
+        GestureDetector(
+          onTap: () => _onTap(),
+          child: Text(
+            "View All",
+            style: TextStyle(
+              color: Color(0xFF27AE60),
+              fontSize: height(context, 14),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _covidBanner() {
     return Padding(
       padding: EdgeInsets.only(
         top: height(context, 15),
+        bottom: height(context, 27),
       ),
-      child: Container(
-        height: height(context, 90),
-        width: width(context, 331),
-        child: Image.asset(
-          'assets/BG.png',
-          fit: BoxFit.fitHeight,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            height: height(context, 90),
+            width: width(context, 155),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  height(context, 10),
+                ),
+              ),
+            ),
+            child: Image.asset('assets/COVID.png', fit: BoxFit.fill),
+          ),
+          Container(
+            height: height(context, 90),
+            width: width(context, 155),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  height(context, 10),
+                ),
+              ),
+            ),
+            child: Image.asset('assets/Book Test.png', fit: BoxFit.fill),
+          ),
+        ],
       ),
     );
   }
