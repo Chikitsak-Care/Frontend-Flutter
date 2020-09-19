@@ -108,6 +108,7 @@ class _DashBoardState extends State<DashBoard> {
       _findYourDoctorScroller(),
       _onGoingConsultation(),
       _topRankedDoctors(),
+      _pharmaciesNearMe()
     ];
 
     return Expanded(
@@ -141,6 +142,119 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
+  Widget _pharmaciesNearMe() {
+    List<Widget> _children = [
+      _pharmaciesNearMeHeader(),
+      _pharmaciesNearMeBody()
+    ];
+    return Padding(
+      padding: EdgeInsets.only(top: height(context, 25)),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, children: _children),
+    );
+  }
+
+  Widget _pharmaciesNearMeBody() {
+    List<Widget> _children = [
+      _pharmaciesNearMeTile("Om Pharmacy", "0.37 Kms away", " "),
+      _pharmaciesNearMeTile("Aakash Pharmaceuticals", "0.58 Kms away", " "),
+      _pharmaciesNearMeTile("Balaji Medicals", "1.01 kms away", " ")
+    ];
+    return Container(
+        height: height(context, 235),
+        width: width(context, 340),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: _children,
+        ));
+  }
+
+  Widget _pharmaciesNearMeTile(
+      String pharmaName, String distance, String imageURL) {
+    return Container(
+      height: height(context, 68),
+      width: width(context, 340),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            height(context, 10),
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: height(context, 11),
+          horizontal: width(context, 15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: height(context, 46),
+              width: width(context, 48),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    height(context, 10),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: width(context, 190),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    pharmaName,
+                    style: TextStyle(
+                        fontSize: height(context, 14),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[800]),
+                  ),
+                  Text(
+                    distance,
+                    style: TextStyle(
+                        fontSize: height(context, 12), color: Colors.grey[400]),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.more_vert,
+              color: Colors.grey[400],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _pharmaciesNearMeHeader() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: height(context, 14)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Pharmacies Near Me",
+              style: TextStyle(
+                  fontSize: height(context, 18), fontWeight: FontWeight.w500)),
+          Text(
+            "View All",
+            style: TextStyle(
+              color: Color(0xFF27AE60),
+              fontSize: height(context, 14),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _topRankedDoctors() {
     List<Widget> _children = [
       _topRankedDoctorsHeader(),
@@ -155,9 +269,9 @@ class _DashBoardState extends State<DashBoard> {
 
   Widget _topRankedDoctorsBody() {
     List<Widget> _children = [
-      _topDoctorTile("General Physician", "Vivek Singh", "2H"),
-      _topDoctorTile("Paediatrician", "Anand Sharma", "3H"),
-      _topDoctorTile("Dentist", "Kiran Deep", "3H"),
+      _topDoctorTile("General Physician", "Vivek Singh", "99%"),
+      _topDoctorTile("Paediatrician", "Anand Sharma", "98%"),
+      _topDoctorTile("Dentist", "Kiran Deep", "96%"),
     ];
     return Container(
       height: height(context, 235),
@@ -185,7 +299,7 @@ class _DashBoardState extends State<DashBoard> {
       child: Padding(
         padding: EdgeInsets.symmetric(
           vertical: height(context, 11),
-          horizontal: width(context, 19),
+          horizontal: width(context, 15),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +313,6 @@ class _DashBoardState extends State<DashBoard> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(height(context, 10)))),
             ),
-            // SizedBox(width: width(context, 16)),
             Container(
               width: width(context, 190),
               child: Column(
@@ -225,19 +338,19 @@ class _DashBoardState extends State<DashBoard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.lock_clock,
-                  color: Colors.blue,
-                  size: height(context, 24),
-                ),
                 Text(
                   responseRate,
                   style: TextStyle(
-                    fontSize: height(context, 13),
+                    fontSize: height(context, 16),
                     fontWeight: FontWeight.w500,
-                    color: Colors.blue,
+                    color: Color(0xFF27AE60),
                   ),
-                )
+                ),
+                Text(
+                  "response rate",
+                  style: TextStyle(
+                      fontSize: height(context, 9), color: Colors.grey[500]),
+                ),
               ],
             )
           ],
@@ -628,27 +741,32 @@ class _DashBoardState extends State<DashBoard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+        // mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: width(context, 234),
-            child: TextField(
-              textAlignVertical: TextAlignVertical.top,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(
-                  left: width(context, 16),
+            height: height(context, 44),
+            child: Center(
+              child: TextField(
+                decoration: InputDecoration(
+                  isDense: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  contentPadding: EdgeInsets.only(
+                    left: width(context, 16),
+                  ),
+                  hintText: "Search Doctors, medicines...",
+                  border: InputBorder.none,
                 ),
-                hintText: "Search Doctors, medicines...",
-                border: InputBorder.none,
+                onChanged: (value) {
+                  searchString = value;
+                },
+                onSubmitted: (value) {
+                  print(searchString);
+                },
               ),
-              onChanged: (value) {
-                searchString = value;
-              },
-              onSubmitted: (value) {
-                print(searchString);
-              },
             ),
           ),
+          SizedBox(width: width(context, 25)),
           GestureDetector(
             onTap: () => _onPressed(),
             child: Container(
