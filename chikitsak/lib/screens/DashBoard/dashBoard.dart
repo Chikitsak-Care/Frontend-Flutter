@@ -107,7 +107,7 @@ class _DashBoardState extends State<DashBoard> {
       _covidBanner(),
       _findYourDoctorScroller(),
       _onGoingConsultation(),
-      _topRankedDoctors()
+      _topRankedDoctors(),
     ];
 
     return Expanded(
@@ -208,12 +208,13 @@ class _DashBoardState extends State<DashBoard> {
                 children: [
                   Text(
                     doctorCategory,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                    style: TextStyle(
+                        fontSize: height(context, 12), color: Colors.grey[400]),
                   ),
                   Text(
                     "Dr. " + doctorName,
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: height(context, 14),
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[800]),
                   )
@@ -224,11 +225,15 @@ class _DashBoardState extends State<DashBoard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.lock_clock, color: Colors.blue),
+                Icon(
+                  Icons.lock_clock,
+                  color: Colors.blue,
+                  size: height(context, 24),
+                ),
                 Text(
                   responseRate,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: height(context, 13),
                     fontWeight: FontWeight.w500,
                     color: Colors.blue,
                   ),
@@ -248,7 +253,8 @@ class _DashBoardState extends State<DashBoard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("Top Ranked Doctors",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              style: TextStyle(
+                  fontSize: height(context, 18), fontWeight: FontWeight.w500)),
           Text(
             "View All",
             style: TextStyle(
@@ -287,7 +293,8 @@ class _DashBoardState extends State<DashBoard> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("Ongoing Consultation",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              style: TextStyle(
+                  fontSize: height(context, 18), fontWeight: FontWeight.w500)),
           Text(
             "View History",
             style: TextStyle(
@@ -333,12 +340,14 @@ class _DashBoardState extends State<DashBoard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(doctorCategory,
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[400])),
+                          style: TextStyle(
+                              fontSize: height(context, 14),
+                              color: Colors.grey[400])),
                       Text(
                         "Dr. " + doctorName,
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: height(context, 20),
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -362,13 +371,13 @@ class _DashBoardState extends State<DashBoard> {
                   children: [
                     Text("Consultation Date",
                         style: TextStyle(
-                          fontSize: 10,
+                          fontSize: height(context, 10),
                           color: Colors.grey[400],
                         )),
                     Text(
                       consultationDate,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: height(context, 16),
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[800],
                       ),
@@ -377,7 +386,8 @@ class _DashBoardState extends State<DashBoard> {
                 ),
                 Text(
                   "View Prescription",
-                  style: TextStyle(fontSize: 14, color: Color(0xFF00B6BD)),
+                  style: TextStyle(
+                      fontSize: height(context, 14), color: Color(0xFF00B6BD)),
                 )
               ],
             ),
@@ -388,14 +398,14 @@ class _DashBoardState extends State<DashBoard> {
                 Text(
                   "Latest Remark",
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: height(context, 10),
                     color: Colors.grey[400],
                   ),
                 ),
                 Text(
                   latestRemark,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: height(context, 16),
                     fontWeight: FontWeight.w500,
                     color: Colors.grey[800],
                   ),
@@ -412,6 +422,7 @@ class _DashBoardState extends State<DashBoard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         _doctorScrollerHeader(),
         SizedBox(
@@ -447,10 +458,12 @@ class _DashBoardState extends State<DashBoard> {
           .add(_cardModel(imageUrl[i], name[i], background[i], noOfDoctors[i]));
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        child: Expanded(
+    return Container(
+      height: height(context, 132),
+      width: double.infinity,
+      child: Expanded(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
           child: Row(
             children: _children,
           ),
@@ -616,10 +629,12 @@ class _DashBoardState extends State<DashBoard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Container(
             width: width(context, 234),
             child: TextField(
+              textAlignVertical: TextAlignVertical.top,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(
                   left: width(context, 16),
