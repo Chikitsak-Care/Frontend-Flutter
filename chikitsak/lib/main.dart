@@ -1,3 +1,4 @@
+import 'package:chikitsak/screens/Landing%20Page/landingPage.dart';
 import 'package:chikitsak/screens/onBoarding/onBoarding.dart';
 import 'package:chikitsak/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Chikitsak",
       theme: ThemeData(primaryColor: uiBlue),
-      home: Home(),
+      home: LandingHome(uid: "Akshith"),
     );
   }
 }

@@ -12,12 +12,7 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: uiBlue,
-      body: SafeArea(
-        child: _buildDashboardBody(),
-      ),
-    );
+    return _buildDashboardBody();
   }
 
   Widget _buildDashboardBody() {
@@ -34,7 +29,7 @@ class _DashBoardState extends State<DashBoard> {
     return Padding(
       padding: EdgeInsets.only(
         left: width(context, 22),
-        top: height(context, 32),
+        top: height(context, 52),
         right: width(context, 22),
       ),
       child: Row(
