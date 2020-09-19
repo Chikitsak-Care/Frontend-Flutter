@@ -157,7 +157,7 @@ class _DashBoardState extends State<DashBoard> {
     List<Widget> _children = [
       _topDoctorTile("General Physician", "Vivek Singh", "2H"),
       _topDoctorTile("Paediatrician", "Anand Sharma", "3H"),
-      _topDoctorTile("Dentist", "Kiran Deep", "3H")
+      _topDoctorTile("Dentist", "Kiran Deep", "3H"),
     ];
     return Container(
       height: height(context, 235),
@@ -458,15 +458,14 @@ class _DashBoardState extends State<DashBoard> {
           .add(_cardModel(imageUrl[i], name[i], background[i], noOfDoctors[i]));
     }
 
-    return Container(
-      height: height(context, 132),
+    return SizedBox(
+      height: height(context, 134),
       width: double.infinity,
-      child: Expanded(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: _children,
-          ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: _children,
         ),
       ),
     );
@@ -585,7 +584,7 @@ class _DashBoardState extends State<DashBoard> {
             height: height(context, 90),
             width: width(context, 155),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.transparent,
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   height(context, 10),
@@ -598,7 +597,7 @@ class _DashBoardState extends State<DashBoard> {
             height: height(context, 90),
             width: width(context, 155),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.transparent,
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   height(context, 10),
