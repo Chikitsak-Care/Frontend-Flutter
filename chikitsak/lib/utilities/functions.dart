@@ -1,4 +1,5 @@
 import 'package:chikitsak/screens/DashBoard/dashBoard.dart';
+import 'package:chikitsak/screens/Landing%20Page/landingPage.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserLoginScreen/loginScreen.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserRegistrationProcess/signUpScreen.dart';
 import 'package:chikitsak/screens/onBoarding/onBoarding.dart';
@@ -48,7 +49,7 @@ void signin(BuildContext context, String email, String password) {
       context,
       EnterExitRoute(
         exitPage: LoginScreen(),
-        enterPage: DashBoard(
+        enterPage: LandingHome(
           uid: uid,
         ),
       ),

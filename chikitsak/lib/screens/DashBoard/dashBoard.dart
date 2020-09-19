@@ -103,7 +103,8 @@ class _DashBoardState extends State<DashBoard> {
       _findYourDoctorScroller(),
       _onGoingConsultation(),
       _topRankedDoctors(),
-      _pharmaciesNearMe()
+      _pharmaciesNearMe(),
+      _bottomSizedBox()
     ];
 
     return Expanded(
@@ -135,6 +136,10 @@ class _DashBoardState extends State<DashBoard> {
             ),
           )),
     );
+  }
+
+  Widget _bottomSizedBox() {
+    return SizedBox(height: height(context, 50));
   }
 
   Widget _pharmaciesNearMe() {

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Chikitsak",
       theme: ThemeData(primaryColor: uiBlue),
-      home: LandingHome(uid: "Akshith"),
+      home: Home(),
     );
   }
 }
