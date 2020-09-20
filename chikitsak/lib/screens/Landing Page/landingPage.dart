@@ -1,5 +1,6 @@
 import 'package:chikitsak/screens/DashBoard/dashBoard.dart';
 import 'package:chikitsak/utilities/constants.dart';
+import 'package:chikitsak/utilities/functions.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _LandingHomeState extends State<LandingHome> {
               this.setState(() {
                 currentDashBoardTab = DashBoardTab.profile;
               });
+              signOut(context);
               break;
           }
         },

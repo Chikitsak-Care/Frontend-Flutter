@@ -1,4 +1,3 @@
-import 'package:chikitsak/screens/DashBoard/dashBoard.dart';
 import 'package:chikitsak/screens/Landing%20Page/landingPage.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserLoginScreen/loginScreen.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserRegistrationProcess/signUpScreen.dart';
@@ -7,6 +6,8 @@ import 'package:chikitsak/utilities/pageTransitions.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void login(BuildContext context) {
   Navigator.pushReplacement(
@@ -28,7 +29,23 @@ void signup(BuildContext context) {
   );
 }
 
-void signin(BuildContext context, String email, String password) {
+Future<void> signOut(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  final _auth = FirebaseAuth.instance;
+  try {
+    _auth.signOut();
+    prefs.remove('uid');
+    login(context);
+  } catch (e) {
+    Flushbar(
+      message: e.message,
+      duration: Duration(milliseconds: 2000),
+    )..show(context);
+  }
+}
+
+Future<void> signin(BuildContext context, String email, String password) async {
   if (!EmailValidator.validate(email)) {
     Flushbar(
       message: "Invalid Email Address",
@@ -40,19 +57,31 @@ void signin(BuildContext context, String email, String password) {
       duration: Duration(milliseconds: 2000),
     )..show(context);
 
-    //api call which will give uid as response
+    final _auth = FirebaseAuth.instance;
+    User _user;
 
-    //mock uid
-    String uid = "mock_user_identification_001_test";
-
-    Navigator.pushReplacement(
-      context,
-      EnterExitRoute(
-        exitPage: LoginScreen(),
-        enterPage: LandingHome(
-          uid: uid,
-        ),
-      ),
-    );
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .whenComplete(() => {_user = _auth.currentUser});
+      if (_user != null) {
+        prefs.setString("uid", _auth.currentUser.uid);
+        Navigator.pushReplacement(
+          context,
+          EnterExitRoute(
+            exitPage: LoginScreen(),
+            enterPage: LandingHome(
+              uid: _user.uid,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      Flushbar(
+        message: e.message,
+        duration: Duration(milliseconds: 2000),
+      )..show(context);
+    }
   }
 }
