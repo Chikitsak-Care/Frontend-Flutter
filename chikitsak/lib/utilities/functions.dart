@@ -62,22 +62,21 @@ Future<void> signin(BuildContext context, String email, String password) async {
 
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-
-      final user = await _auth
+      await _auth
           .signInWithEmailAndPassword(email: email, password: password)
           .whenComplete(() => {_user = _auth.currentUser});
-      _user != null ? prefs.setString("uid", _auth.currentUser.uid) : null;
-      _user != null
-          ? Navigator.pushReplacement(
-              context,
-              EnterExitRoute(
-                exitPage: LoginScreen(),
-                enterPage: LandingHome(
-                  uid: _user.uid,
-                ),
-              ),
-            )
-          : null;
+      if (_user != null) {
+        prefs.setString("uid", _auth.currentUser.uid);
+        Navigator.pushReplacement(
+          context,
+          EnterExitRoute(
+            exitPage: LoginScreen(),
+            enterPage: LandingHome(
+              uid: _user.uid,
+            ),
+          ),
+        );
+      }
     } catch (e) {
       Flushbar(
         message: e.message,
