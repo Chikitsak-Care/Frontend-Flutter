@@ -19,6 +19,9 @@ dependencies:
   flushbar:
   step_progress_indicator:
   floating_bottom_navigation_bar:
+  shared_preferences: ^0.5.10
+  firebase_core:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:

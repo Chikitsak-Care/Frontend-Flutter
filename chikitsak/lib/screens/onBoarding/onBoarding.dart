@@ -3,7 +3,12 @@ import 'package:chikitsak/utilities/functions.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     TextStyle kHeader = baseStyle.copyWith(
