@@ -1,3 +1,5 @@
+import 'package:chikitsak/screens/DashBoard/dashBoard.dart';
+import 'package:chikitsak/screens/Landing%20Page/landingPage.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserLoginScreen/loginScreen.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserRegistrationProcess/signUpScreen.dart';
 import 'package:chikitsak/screens/onBoarding/onBoarding.dart';
@@ -37,5 +39,20 @@ void signin(BuildContext context, String email, String password) {
       message: "Logging in $email",
       duration: Duration(milliseconds: 2000),
     )..show(context);
+
+    //api call which will give uid as response
+
+    //mock uid
+    String uid = "mock_user_identification_001_test";
+
+    Navigator.pushReplacement(
+      context,
+      EnterExitRoute(
+        exitPage: LoginScreen(),
+        enterPage: LandingHome(
+          uid: uid,
+        ),
+      ),
+    );
   }
 }

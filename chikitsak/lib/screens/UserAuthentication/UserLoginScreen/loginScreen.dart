@@ -23,6 +23,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle kLoginHeader = baseStyle.copyWith(
+        color: uiBlue,
+        fontSize: height(context, 14),
+        fontWeight: FontWeight.w600);
+    TextStyle kHeader = baseStyle.copyWith(
+        color: Colors.black,
+        fontSize: height(context, 26),
+        fontWeight: FontWeight.bold);
+    TextStyle kSubBody = baseStyle.copyWith(
+        color: Colors.black,
+        fontSize: height(context, 16),
+        fontWeight: FontWeight.w500);
+    TextStyle kSubBody2 = kSubBody.copyWith(color: uiBlue);
+    TextStyle kButton1 = baseStyle.copyWith(
+        fontSize: height(context, 20), fontWeight: FontWeight.w600);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -114,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Forgot Password    ",
                       style: kSubBody.copyWith(
-                        fontSize: 13,
+                        fontSize: height(context, 13),
                       ),
                     )
                   ],
