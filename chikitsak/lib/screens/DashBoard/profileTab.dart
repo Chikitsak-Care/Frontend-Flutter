@@ -11,15 +11,21 @@ class ProfileTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        InkWell(
-          onTap: () {
-            signOut(context);
-          },
-          child: Container(
-            height: 50,
-            width: 100,
-            child: Center(
-              child: Text("Logout"),
+        Center(
+          child: InkWell(
+            onTap: () {
+              signOut(context);
+            },
+            child: Container(
+              height: 45,
+              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Text("Logout"),
+              ),
             ),
           ),
         )
