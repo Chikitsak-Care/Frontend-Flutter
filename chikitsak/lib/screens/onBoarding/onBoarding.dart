@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(

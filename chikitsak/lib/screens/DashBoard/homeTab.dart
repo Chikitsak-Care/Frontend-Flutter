@@ -2,14 +2,14 @@ import 'package:chikitsak/utilities/constants.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
 import 'package:flutter/material.dart';
 
-class DashBoard extends StatefulWidget {
-  DashBoard({@required this.uid});
+class HomeTab extends StatefulWidget {
+  HomeTab({@required this.uid});
   final String uid;
   @override
-  _DashBoardState createState() => _DashBoardState();
+  _HomeTabState createState() => _HomeTabState();
 }
 
-class _DashBoardState extends State<DashBoard> {
+class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
     return _buildDashboardBody();
@@ -216,6 +216,7 @@ class _DashBoardState extends State<DashBoard> {
                         fontWeight: FontWeight.w500,
                         color: Colors.grey[800]),
                   ),
+                  SizedBox(height: height(context, 3)),
                   Text(
                     distance,
                     style: TextStyle(
@@ -313,25 +314,30 @@ class _DashBoardState extends State<DashBoard> {
                   borderRadius:
                       BorderRadius.all(Radius.circular(height(context, 10)))),
             ),
-            Container(
-              width: width(context, 190),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    doctorCategory,
-                    style: TextStyle(
-                        fontSize: height(context, 12), color: Colors.grey[400]),
-                  ),
-                  Text(
-                    "Dr. " + doctorName,
-                    style: TextStyle(
-                        fontSize: height(context, 14),
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[800]),
-                  )
-                ],
+            Padding(
+              padding: EdgeInsets.only(left: width(context, 14.0)),
+              child: Container(
+                width: width(context, 180),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      doctorCategory,
+                      style: TextStyle(
+                          fontSize: height(context, 12),
+                          color: Colors.grey[400]),
+                    ),
+                    SizedBox(height: height(context, 3)),
+                    Text(
+                      "Dr. " + doctorName,
+                      style: TextStyle(
+                          fontSize: height(context, 14),
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[800]),
+                    )
+                  ],
+                ),
               ),
             ),
             Column(
@@ -704,7 +710,7 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ),
             ),
-            child: Image.asset('assets/COVID.png', fit: BoxFit.fill),
+            child: Image.asset('assets/COVID (2).png', fit: BoxFit.fill),
           ),
           Container(
             height: height(context, 90),
@@ -717,7 +723,7 @@ class _DashBoardState extends State<DashBoard> {
                 ),
               ),
             ),
-            child: Image.asset('assets/Book Test.png', fit: BoxFit.fill),
+            child: Image.asset('assets/Book Test (2).png', fit: BoxFit.fill),
           ),
         ],
       ),
