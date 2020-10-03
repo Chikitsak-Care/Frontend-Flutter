@@ -36,163 +36,128 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget buildLoginScreenBody(BuildContext context) {
-    TextStyle kLoginHeader = baseStyle.copyWith(
-        color: uiBlue,
-        fontSize: height(context, 14),
-        fontWeight: FontWeight.w600);
-    TextStyle kHeader = baseStyle.copyWith(
-        color: Colors.black,
-        fontSize: height(context, 26),
-        fontWeight: FontWeight.bold);
-    TextStyle kSubBody = baseStyle.copyWith(
-        color: Colors.black,
-        fontSize: height(context, 16),
-        fontWeight: FontWeight.w500);
-    TextStyle kSubBody2 = kSubBody.copyWith(color: uiBlue);
-    TextStyle kButton1 = baseStyle.copyWith(
-        fontSize: height(context, 20), fontWeight: FontWeight.w600);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: width(context, 30),
-      ),
+          horizontal: width(context, 30), vertical: height(context, 30)),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: height(context, 150),
-            child: Image.asset("assets/login.png"),
-          ),
-          buildSizedBox(context, 25),
+          Image.asset("assets/Insurance-amico 1.png",
+              height: height(context, 156), width: width(context, 156)),
+          SizedBox(height: height(context, 11)),
           Text(
-            "Welcome Back",
-            style: kLoginHeader,
+            "Welcome back to the club!",
+            style: TextStyle(
+                color: uiBlue,
+                fontSize: height(context, 26),
+                fontWeight: FontWeight.w700),
           ),
-          buildSizedBox(context, 10),
+          SizedBox(height: height(context, 3)),
+          Text("Login to continue using our services",
+              style: TextStyle(
+                  color: uiBlue,
+                  fontSize: height(context, 14),
+                  fontWeight: FontWeight.w400)),
+          SizedBox(height: height(context, 39)),
           Text(
-            "Login with Email",
-            style: kHeader,
+            "Email",
+            style: TextStyle(
+                color: uiBlue,
+                fontSize: height(context, 12),
+                fontWeight: FontWeight.w500),
           ),
-          buildSizedBox(context, 25),
-          emailTextField(context),
-          buildSizedBox(context, 20),
-          passwordTextField(context),
-          buildSizedBox(context, 15),
-          forgotPasswordBanner(kSubBody, context),
-          buildSizedBox(context, 25),
-          loginButton(context, kButton1),
-          buildSizedBox(context, 25),
-          dontHaveAnAccountBanner(kSubBody, context, kSubBody2),
-          buildSizedBox(context, 30),
+          TextField(
+            onChanged: (value) {
+              email = value;
+            },
+            decoration: InputDecoration(
+              hintText: "hernandez@chikitsak.com",
+              hintStyle: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: height(context, 14),
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          SizedBox(height: height(context, 26)),
+          Text(
+            "Password",
+            style: TextStyle(
+                color: uiBlue,
+                fontSize: height(context, 12),
+                fontWeight: FontWeight.w500),
+          ),
+          TextField(
+            onChanged: (value) {
+              password = value;
+            },
+            obscureText: _isHidden,
+            decoration: InputDecoration(
+              hintText: "Enter Password",
+              hintStyle: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: height(context, 14),
+                  fontWeight: FontWeight.w400),
+              suffixIcon: IconButton(
+                  iconSize: height(context, 16),
+                  color: uiBlue,
+                  icon: _isHidden
+                      ? Icon(Icons.visibility_off)
+                      : Icon(Icons.visibility),
+                  onPressed: _toggleVisibility),
+            ),
+          ),
+          SizedBox(height: height(context, 44)),
+          InkWell(
+            onTap: () async {
+              if (email != null && password != null)
+                await signin(context, email, password);
+              else
+                Flushbar(
+                  message: "Please enter email and password",
+                  duration: Duration(milliseconds: 2000),
+                )..show(context);
+            },
+            child: Container(
+              height: height(context, 52),
+              width: width(context, 331),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: uiBlue,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Text("Log In",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: height(context, 20),
+                      fontWeight: FontWeight.w500)),
+            ),
+          ),
+          SizedBox(height: height(context, 20)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Don't have an account?",
+                style: TextStyle(
+                    color: Colors.grey[500],
+                    fontSize: height(context, 12),
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(width: width(context, 4)),
+              InkWell(
+                onTap: () => signup(context),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                      color: uiBlue,
+                      fontSize: height(context, 12),
+                      fontWeight: FontWeight.w400),
+                ),
+              )
+            ],
+          )
         ],
       ),
-    );
-  }
-
-  SizedBox buildSizedBox(BuildContext context, double _height) {
-    return SizedBox(
-      height: height(context, _height),
-    );
-  }
-
-  Row forgotPasswordBanner(TextStyle kSubBody, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          "Forgot Password  ",
-          style: kSubBody.copyWith(
-            fontSize: height(context, 13),
-          ),
-        )
-      ],
-    );
-  }
-
-  Row dontHaveAnAccountBanner(
-      TextStyle kSubBody, BuildContext context, TextStyle kSubBody2) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          "Don't have an Account?",
-          style: kSubBody,
-        ),
-        GestureDetector(
-            onTap: () => signup(context),
-            child: Text(" Create Now", style: kSubBody2))
-      ],
-    );
-  }
-
-  MaterialButton loginButton(BuildContext context, TextStyle kButton1) {
-    return MaterialButton(
-      height: height(context, 50),
-      minWidth: width(context, 200),
-      onPressed: () {
-        if (email != null && password != null)
-          signin(context, email, password);
-        else
-          Flushbar(
-            message: "Invalid Email / Password",
-            duration: Duration(milliseconds: 3000),
-          )..show(context);
-      },
-      child: Text(
-        "Login",
-        style: kButton1,
-      ),
-      color: uiBlue,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-    );
-  }
-
-  TextField passwordTextField(BuildContext context) {
-    return TextField(
-      onChanged: (value) {
-        setState(() {
-          password = value;
-        });
-      },
-      obscureText: _isHidden,
-      decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "",
-        contentPadding: EdgeInsets.only(
-          left: width(context, 20),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            width(context, 16),
-          ),
-        ),
-        suffixIcon: IconButton(
-            iconSize: height(context, 20),
-            color: uiBlue,
-            icon:
-                _isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-            onPressed: _toggleVisibility),
-      ),
-    );
-  }
-
-  TextField emailTextField(BuildContext context) {
-    return TextField(
-      onChanged: (value) {
-        setState(() {
-          email = value;
-        });
-      },
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(
-            left: width(context, 20),
-          ),
-          labelText: "Email",
-          hintText: "example@gmail.com",
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-            width(context, 16),
-          ))),
     );
   }
 }

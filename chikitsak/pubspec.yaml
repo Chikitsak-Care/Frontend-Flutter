@@ -22,6 +22,7 @@ dependencies:
   shared_preferences: ^0.5.10
   firebase_core:
   firebase_auth:
+  smooth_page_indicator:
 
 dev_dependencies:
   flutter_test:

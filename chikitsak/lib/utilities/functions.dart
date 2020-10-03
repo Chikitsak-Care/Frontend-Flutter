@@ -1,5 +1,6 @@
 import 'package:chikitsak/screens/Landing%20Page/landingPage.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserLoginScreen/loginScreen.dart';
+import 'package:chikitsak/screens/UserAuthentication/UserRegistrationProcess/helpUstoGetToKnowYou.dart';
 import 'package:chikitsak/screens/UserAuthentication/UserRegistrationProcess/signUpScreen.dart';
 import 'package:chikitsak/screens/onBoarding/onBoarding.dart';
 import 'package:chikitsak/utilities/pageTransitions.dart';
@@ -29,6 +30,26 @@ void signup(BuildContext context) {
   );
 }
 
+Future<void> getStarted(
+    BuildContext context,
+    String age,
+    int gender,
+    String weight,
+    String height,
+    String medications,
+    String allergies,
+    String uid) async {
+  Navigator.pushReplacement(
+    context,
+    EnterExitRoute(
+      exitPage: LoginScreen(),
+      enterPage: LandingHome(
+        uid: uid,
+      ),
+    ),
+  );
+}
+
 Future<void> signOut(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -40,6 +61,34 @@ Future<void> signOut(BuildContext context) async {
   } catch (e) {
     Flushbar(
       message: e.message,
+      duration: Duration(milliseconds: 2000),
+    )..show(context);
+  }
+}
+
+Future<void> signUp(BuildContext context, String email, String password,
+    String name, String mobile) async {
+  final _auth = FirebaseAuth.instance;
+  User _user;
+  try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .whenComplete(() => {_user = _auth.currentUser});
+    if (_user != null) {
+      prefs.setString("uid", _auth.currentUser.uid);
+      Navigator.pushReplacement(
+        context,
+        EnterExitRoute(
+          exitPage: LoginScreen(),
+          enterPage: HelpUsKnowYouBetter(
+              name: name, mobile: mobile, uid: _auth.currentUser.uid),
+        ),
+      );
+    }
+  } catch (e) {
+    Flushbar(
+      message: e.message.toString(),
       duration: Duration(milliseconds: 2000),
     )..show(context);
   }

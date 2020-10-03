@@ -1,3 +1,4 @@
+import 'package:chikitsak/screens/Appointment/appointment.dart';
 import 'package:chikitsak/utilities/constants.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
 import 'package:flutter/material.dart';
@@ -664,7 +665,13 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _doctorScrollerHeader() {
-    void _onTap() {}
+    void _onTap() {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Appointment(uid: widget.uid)));
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
