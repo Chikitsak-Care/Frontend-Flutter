@@ -133,6 +133,25 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           SizedBox(height: height(context, 20)),
+          InkWell(
+            onTap: () async {
+              await signInWithGoogle(context);
+            },
+            child: Container(
+              height: height(context, 52),
+              width: width(context, 331),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Text("Google",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: height(context, 20),
+                      fontWeight: FontWeight.w500)),
+            ),
+          ),
+          SizedBox(height: height(context, 20)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

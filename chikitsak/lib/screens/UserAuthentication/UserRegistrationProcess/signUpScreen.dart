@@ -14,8 +14,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   String email;
   String password;
-  String mobile;
-  String name;
+
   @override
   Widget build(BuildContext context) {
     bool _isHidden = true;
@@ -54,26 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.w400)),
               SizedBox(height: height(context, 39)),
               Text(
-                "Name",
-                style: TextStyle(
-                    color: uiBlue,
-                    fontSize: height(context, 12),
-                    fontWeight: FontWeight.w500),
-              ),
-              TextField(
-                onChanged: (value) {
-                  name = value;
-                },
-                decoration: InputDecoration(
-                  hintText: "Enter Your Full Name",
-                  hintStyle: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: height(context, 14),
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              SizedBox(height: height(context, 26)),
-              Text(
                 "Email",
                 style: TextStyle(
                     color: uiBlue,
@@ -86,26 +65,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
                 decoration: InputDecoration(
                   hintText: "hernandez@chikitsak.com",
-                  hintStyle: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: height(context, 14),
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              SizedBox(height: height(context, 26)),
-              Text(
-                "Phone Number",
-                style: TextStyle(
-                    color: uiBlue,
-                    fontSize: height(context, 12),
-                    fontWeight: FontWeight.w500),
-              ),
-              TextField(
-                onChanged: (value) {
-                  mobile = value;
-                },
-                decoration: InputDecoration(
-                  hintText: "9876453210",
                   hintStyle: TextStyle(
                       color: Colors.grey[400],
                       fontSize: height(context, 14),
@@ -177,21 +136,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: height(context, 16)),
               InkWell(
                 onTap: () async {
-                  print(name);
-                  print(email);
-                  print(password);
-                  print(mobile);
-                  if (name != null &&
-                      email != null &&
-                      password != null &&
-                      mobile != null) {
+                  if (email != null && password != null) {
                     if (!EmailValidator.validate(email)) {
                       Flushbar(
                         message: "Invalid Email Address",
                         duration: Duration(milliseconds: 2000),
                       )..show(context);
                     } else
-                      await signUp(context, email, password, name, mobile);
+                      await signUp(
+                        context,
+                        email,
+                        password,
+                      );
                   } else
                     Flushbar(
                       message: "Please fill the details before Signing Up",
@@ -206,6 +162,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: uiBlue,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Sign Up",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: height(context, 20),
+                          fontWeight: FontWeight.w500)),
+                ),
+              ),
+              SizedBox(height: height(context, 16)),
+              InkWell(
+                onTap: () async {
+                  await signUpWithGoogle(context);
+                },
+                child: Container(
+                  height: height(context, 52),
+                  width: width(context, 331),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Text("Google",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: height(context, 20),

@@ -1,3 +1,4 @@
+import 'package:chikitsak/screens/ConnectionEnvironment/chatScreenTemplate.dart';
 import 'package:chikitsak/utilities/constants.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
 import 'package:flutter/material.dart';
@@ -100,73 +101,28 @@ class _ChatTabState extends State<ChatTab> {
           textAlign: TextAlign.left,
         ),
         _buildSizedBox(height(context, 3)),
-        _doctorTile("", "Amit Singh", "General Physician", "3 Days"),
-        _doctorTile("", "Shriya Padmini", "General Physician", "1 Week"),
-        _doctorTile("", "Phunsukh Wangdu", "General Physician", "3 Weeks"),
+        DoctorTile(
+          "Amit Singh",
+          "General Physician",
+          "3 Days",
+          widget.uid,
+          "",
+        ),
+        DoctorTile(
+          "Shriya Padmini",
+          "General Physician",
+          "1 Week",
+          widget.uid,
+          "",
+        ),
+        DoctorTile(
+          "Phunsukh Wangdu",
+          "General Physician",
+          "3 Weeks",
+          widget.uid,
+          "",
+        ),
       ],
-    );
-  }
-
-  Widget _doctorTile(String imageUrl, String doctorName, String doctorCategory,
-      String lastConnected) {
-    return Padding(
-      padding: EdgeInsets.only(top: height(context, 11)),
-      child: Container(
-        padding: EdgeInsets.all(height(context, 14)),
-        height: height(context, 99),
-        width: width(context, 331),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(height(context, 7))),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: height(context, 71),
-              width: width(context, 68),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(height(context, 14))),
-              ),
-            ),
-            SizedBox(width: width(context, 10)),
-            Container(
-              width: width(context, 193),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Dr. " + doctorName,
-                    style: TextStyle(
-                        fontSize: height(context, 16),
-                        fontWeight: FontWeight.w500),
-                  ),
-                  _buildSizedBox(height(context, 4)),
-                  Text(doctorCategory,
-                      style: TextStyle(
-                          fontSize: height(context, 16),
-                          color: Colors.grey[400])),
-                  _buildSizedBox(height(context, 11)),
-                  Text("Last Connected " + lastConnected + " ago",
-                      style: TextStyle(
-                          fontSize: height(context, 12),
-                          color: Colors.grey[400])),
-                ],
-              ),
-            ),
-            GestureDetector(
-              child: Image.asset(
-                'assets/Vector (4).png',
-                height: height(context, 30.67),
-                width: width(context, 32),
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 
@@ -349,3 +305,84 @@ class _ChatTabState extends State<ChatTab> {
 }
 
 enum ChatTabSegnments { doctor, laboratory, pharmacy }
+
+class DoctorTile extends StatelessWidget {
+  final String doctorName;
+  final String doctorCategory;
+  final String lastConnected;
+  final String uid;
+  final String imageURL;
+
+  DoctorTile(this.doctorName, this.doctorCategory, this.lastConnected,
+      this.imageURL, this.uid);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: height(context, 11)),
+      child: Container(
+        padding: EdgeInsets.all(height(context, 14)),
+        height: height(context, 99),
+        width: width(context, 331),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(height(context, 7))),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: height(context, 71),
+              width: width(context, 68),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(height(context, 14))),
+              ),
+            ),
+            SizedBox(width: width(context, 10)),
+            Container(
+              width: width(context, 193),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Dr. " + this.doctorName,
+                    style: TextStyle(
+                        fontSize: height(context, 16),
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: height(context, 4)),
+                  Text(this.doctorCategory,
+                      style: TextStyle(
+                          fontSize: height(context, 16),
+                          color: Colors.grey[400])),
+                  SizedBox(height: height(context, 11)),
+                  Text("Last Connected " + this.lastConnected + " ago",
+                      style: TextStyle(
+                          fontSize: height(context, 12),
+                          color: Colors.grey[400])),
+                ],
+              ),
+            ),
+            GestureDetector(
+              child: Image.asset(
+                'assets/Vector (4).png',
+                height: height(context, 30.67),
+                width: width(context, 32),
+              ),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatScreenEnvironment(
+                          doctorName: this.doctorName,
+                          uid: this.uid,
+                          imageURL: this.imageURL))),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

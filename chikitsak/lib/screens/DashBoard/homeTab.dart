@@ -1,6 +1,7 @@
 import 'package:chikitsak/screens/Appointment/appointment.dart';
 import 'package:chikitsak/utilities/constants.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatefulWidget {
@@ -44,57 +45,7 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _bannerUser() {
-    String name = "Tester";
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: width(context, 48),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/Doctors-pana 1.png',
-            height: height(context, 111),
-            width: width(context, 72),
-          ),
-          SizedBox(
-            width: width(context, 17),
-          ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Hi $name!",
-                  style: TextStyle(
-                      fontSize: height(context, 20),
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: height(context, 7),
-                ),
-                Text(
-                  "Book Your appointment with",
-                  style: TextStyle(
-                    fontSize: height(context, 14),
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  "the right doctor",
-                  style: TextStyle(
-                    fontSize: height(context, 14),
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return UserBanner(uid: widget.uid);
   }
 
   Widget _homeScreenBody() {
@@ -828,5 +779,70 @@ class _HomeTabState extends State<HomeTab> {
       ),
       onTap: () => _onPressed(),
     );
+  }
+}
+
+class UserBanner extends StatelessWidget {
+  final String uid;
+  UserBanner({this.uid});
+  @override
+  Widget build(BuildContext context) {
+    String name;
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection(uid).snapshots(),
+        builder: (context, snapshot) {
+          name = snapshot.data.documents[0]['Name'] ?? " ";
+
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width(context, 48),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/Doctors-pana 1.png',
+                  height: height(context, 111),
+                  width: width(context, 72),
+                ),
+                SizedBox(
+                  width: width(context, 17),
+                ),
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hi $name!",
+                        style: TextStyle(
+                            fontSize: height(context, 20),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: height(context, 7),
+                      ),
+                      Text(
+                        "Book Your appointment with",
+                        style: TextStyle(
+                          fontSize: height(context, 14),
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "the right doctor",
+                        style: TextStyle(
+                          fontSize: height(context, 14),
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

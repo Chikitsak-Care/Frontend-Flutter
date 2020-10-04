@@ -33,7 +33,7 @@ class _AppointmentState extends State<Appointment> {
     return Scaffold(
       backgroundColor: uiBlue,
       appBar: AppBar(
-        backgroundColor: Color(0xFFDFDFDF),
+        backgroundColor: Color(0xFFF0F0F0),
         centerTitle: true,
         elevation: 0.0,
         automaticallyImplyLeading: true,
@@ -46,25 +46,26 @@ class _AppointmentState extends State<Appointment> {
       ),
       body: SafeArea(
         child: Container(
-            width: MediaQuery.of(context).size.width,
-            color: Color(0xFFDFDFDF),
-            child: Padding(
-              padding: EdgeInsets.all(height(context, 14)),
-              child: Column(
-                children: [
-                  _searchBar(),
-                  _filter(),
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        child: Column(children: doctors),
-                      ),
+          width: MediaQuery.of(context).size.width,
+          color: Color(0xFFF0F0F0),
+          child: Padding(
+            padding: EdgeInsets.all(height(context, 14)),
+            child: Column(
+              children: [
+                _searchBar(),
+                _filter(),
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Column(children: doctors),
                     ),
-                  )
-                ],
-              ),
-            ),),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -73,7 +74,11 @@ class _AppointmentState extends State<Appointment> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: height(context, 26)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => Categories());
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -242,6 +247,141 @@ class _AppointmentState extends State<Appointment> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class Categories extends StatefulWidget {
+  @override
+  CategoriesState createState() => CategoriesState();
+}
+
+class CategoriesState extends State<Categories> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: 1.0,
+      child: Container(
+        height: height(context, 682),
+        width: width(context, 336),
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(height(context, 14)),
+        decoration: BoxDecoration(
+          color: Color(0xFFF0F0F0),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Choose Doctor Type",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: height(context, 18))),
+            SizedBox(height: height(context, 26)),
+            Center(
+              child: SizedBox(
+                height: height(context, 550),
+                child: Expanded(
+                  child: SingleChildScrollView(
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      runSpacing: height(context, 12),
+                      spacing: width(context, 14),
+                      children: [
+                        BuildTile("All types"),
+                        BuildTile("Allergy"),
+                        BuildTile("Anesthesiology"),
+                        BuildTile("Dermatology"),
+                        BuildTile("Diagnostic Radiology"),
+                        BuildTile("Emergency Medicine"),
+                        BuildTile("Family Medicine"),
+                        BuildTile("Internal Medicine"),
+                        BuildTile("Medical Genetics"),
+                        BuildTile("Neurology"),
+                        BuildTile("Nuclear Medicine"),
+                        BuildTile("Gynecology"),
+                        BuildTile("Opthamlmology"),
+                        BuildTile("Pathology"),
+                        BuildTile("Dentistry"),
+                        BuildTile("Pediatrics"),
+                        BuildTile("Physical Medicine"),
+                        BuildTile("Cancer"),
+                        BuildTile("Orthopaedics"),
+                        BuildTile("Cardiology"),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: height(context, 48),
+                width: width(context, 308),
+                decoration: BoxDecoration(
+                  color: uiBlue,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                alignment: Alignment.center,
+                child: Text("Apply Selection",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: height(context, 18),
+                        fontWeight: FontWeight.w500)),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildTile extends StatefulWidget {
+  final String title;
+
+  BuildTile(this.title);
+  @override
+  _BuildTileState createState() => _BuildTileState();
+}
+
+class _BuildTileState extends State<BuildTile> {
+  bool selected = false;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          this.selected = !selected;
+        });
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+          bottom: height(context, 0),
+        ),
+        child: Container(
+          height: height(context, 52),
+          width: width(context, 120),
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(
+              vertical: height(context, 7), horizontal: width(context, 10)),
+          decoration: BoxDecoration(
+              color: selected ? uiBlue : Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Text(
+            widget.title,
+            style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: height(context, 16)),
+          ),
+        ),
       ),
     );
   }
