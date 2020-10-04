@@ -1,4 +1,7 @@
-import 'package:chikitsak/screens/DashBoard/dashBoard.dart';
+import 'package:chikitsak/screens/DashBoard/chatTab.dart';
+import 'package:chikitsak/screens/DashBoard/homeTab.dart';
+import 'package:chikitsak/screens/DashBoard/profileTab.dart';
+import 'package:chikitsak/screens/DashBoard/reportsTab.dart';
 import 'package:chikitsak/utilities/constants.dart';
 import 'package:chikitsak/utilities/functions.dart';
 import 'package:chikitsak/utilities/relativeSizing.dart';
@@ -26,7 +29,7 @@ class _LandingHomeState extends State<LandingHome> {
     return Scaffold(
       backgroundColor: uiBlue,
       extendBody: true,
-      body: DashBoard(uid: widget.uid),
+      body: _buildDashBoardScreen(currentDashBoardTab),
       bottomNavigationBar: FloatingNavbar(
         borderRadius: height(context, 20),
         margin: EdgeInsets.symmetric(
@@ -39,7 +42,7 @@ class _LandingHomeState extends State<LandingHome> {
         items: [
           FloatingNavbarItem(icon: Icons.home, title: 'Home'),
           FloatingNavbarItem(icon: Icons.assignment, title: 'Reports'),
-          FloatingNavbarItem(icon: Icons.forum, title: 'Chat'),
+          FloatingNavbarItem(icon: Icons.forum, title: 'Connect'),
           FloatingNavbarItem(icon: Icons.person, title: 'Profile'),
         ],
         currentIndex: currentDashBoardTab.index,
@@ -64,12 +67,32 @@ class _LandingHomeState extends State<LandingHome> {
               this.setState(() {
                 currentDashBoardTab = DashBoardTab.profile;
               });
-              signOut(context);
+
               break;
           }
         },
       ),
     );
+  }
+
+  Widget _buildDashBoardScreen(DashBoardTab currentDashBoardTab) {
+    switch (currentDashBoardTab) {
+      case DashBoardTab.home:
+        return HomeTab(uid: widget.uid);
+        break;
+      case DashBoardTab.report:
+        return ReportTab(uid: widget.uid);
+        break;
+      case DashBoardTab.chat:
+        return ChatTab(uid: widget.uid);
+        break;
+      case DashBoardTab.profile:
+        return ProfileTab(uid: widget.uid);
+        break;
+      default:
+        return HomeTab(uid: widget.uid);
+        break;
+    }
   }
 }
 
